@@ -13,8 +13,9 @@ class CriptoMcELiece():
         self.mensagemCriptografada = self.encriptografa()
 
     def encriptografa(self):
-        self.erro= self.gera_vetor_erro()
-        return self.limpa_mensagem((np.dot(self.publicKey, self.mensagem)) + self.erro)
+        # self.erro= self.gera_vetor_erro()
+        self.erro = [1,1,0,0,0,0,0,0,0,0,0,0]
+        return self.limpa_mensagem((np.dot(self.mensagem,self.publicKey)) + self.erro)
 
     def limpa_mensagem(self,mensagem):
         for i in range (0,len(mensagem)):
@@ -26,8 +27,9 @@ class CriptoMcELiece():
         vetor = []
 
         while(verifica):
-            vetor = np.zeros(self.k)
-            for i in range(int((self.k - len(self.mensagem))/2)):
+            vetor = np.zeros(self.n)
+
+            for i in range(int((self.n - self.k)/2)):
                 numero = random.randint(0,1)
                 vetor[random.randint(0, self.n - 1)] = numero
                 if (numero == 1):

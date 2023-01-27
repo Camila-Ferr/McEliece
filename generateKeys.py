@@ -8,10 +8,15 @@ class ChavesMcELiece():
         self.publicKey()
 
     def privateKey(self):
-
-        self.g = np.random.randint(2, size=(self.k,self.n))
-        self.s = self.s()
-        self.p = self.permutacao(np.random.permutation(self.n),self.n)
+        #
+        self.g = ([0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0], [0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0],[1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1],
+[1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0])
+        # self.s = self.s()
+        # self.p = self.permutacao(np.random.permutation(self.n),self.n)
+        self.s = ([1,0,0,1],[0,1,0,1],[0,1,0,0],[0,0,1,1])
+        self.p = ([1,0,0,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,0,0,0],[0,0,0,0,0,1,0,0,0,0,0,0],[0,0,0,0,1,0,0,0,0,0,0,0],
+                  [0,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1],[0,0,0,0,0,0,0,1,0,0,0,0],[0,0,0,0,0,0,0,0,0,1,0,0],
+                  [0,0,0,0,0,0,0,0,0,0,1,0],[0,0,0,0,0,0,1,0,0,0,0,0])
 
     def publicKey(self):
         resultado =np.dot(self.s,self.g)

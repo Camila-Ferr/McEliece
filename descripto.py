@@ -14,15 +14,14 @@ class DescriptoMcELiece():
         self.t = erro
         self.cLinha = np.dot(self.c, np.linalg.inv(self.keys.p))
 
-        print(self.cLinha)
         #cLinha = msg +eP-1
         eInvP = np.dot(erro,np.linalg.inv(self.keys.p))
 
 
         #tirar os erros da mensagem
-        msg = self.corrigir_erros()
+        msg = self.hamming_decode(self.c)
         #transformar msg para ms
-        ms = self.decode(msg)
+        ms = self.decode()
         return (np.dot(ms,np.linalg.inv(self.keys.s)))
 
     def corrigir_erros(self):
@@ -33,13 +32,6 @@ class DescriptoMcELiece():
         #transformar msg para ms
         return [1,1,0,1]
 
-
-
-        # mSg = np.dot(self.mensagem_cripto,np.linalg.inv(self.keys.p))+np.dot(erro,np.linalg.inv(self.keys.p))
-        #
-        # mSgT = np.transpose(mSg)
-        # gt = np.transpose(self.keys.g)
-        # print(np.linalg.solve(gt, mSgT))
 
 descriptografia = DescriptoMcELiece(12,4)
 mensagem_cripto= CriptoMcELiece(np.array([1,0,1,0]),descriptografia.keys.gLinha)

@@ -2,6 +2,7 @@
 import numpy as np
 
 import generateKeys
+from codigo_erro.hamming_code import Hamming_code
 from cripto import CriptoMcELiece
 
 
@@ -19,14 +20,14 @@ class DescriptoMcELiece():
 
 
         #tirar os erros da mensagem
-        msg = self.hamming_decode(self.c)
-        #transformar msg para ms
-        ms = self.decode()
-        return (np.dot(ms,np.linalg.inv(self.keys.s)))
+        self.mensagem = self.corrigir_erros()
+        # return (np.dot(ms,np.linalg.inv(self.keys.s)))
 
     def corrigir_erros(self):
-        #Berlekamp_Welch (?)
-        return  [1,1,1,1,1,1,1,0,1,1,1,0]
+        hamming = Hamming_code([self.mensagem])
+        vetor_erro = hamming.verifica_erro(self.mensagem, hamming.h_7x4)
+        print(vetor_erro)
+
 
     def decode(self, msg):
         #transformar msg para ms

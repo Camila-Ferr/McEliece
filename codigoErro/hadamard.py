@@ -1,19 +1,15 @@
 import random
 import numpy as np
-class Hadamart():
+from parameters import Paramters
+class Hadamard():
     def __init__(self, mensagem):
-        self.g = np.matrix([[0, 0, 0, 0, 1, 1, 1, 1],
-                            [0, 0, 1, 1, 0, 0, 1, 1],
-                            [0, 1, 0, 1, 0, 1, 0, 1]])
+        self.parametros5x3 = Paramters(4, 5, "Hadammard 8x5x3")
+        self.gt = np.transpose(self.parametros5x3.getG())
+        self.h = self.parametros5x3.getH()
 
-        self.h = np.matrix([[0, 0, 0, 1, 0, 0, 0, 0],
-                           [0, 1, 1, 0, 1, 0, 0, 0],
-                           [1, 0, 1, 0, 0, 1, 0, 0],
-                           [1, 1, 0, 0, 0, 0, 1, 0],
-                           [1, 1, 1, 0, 0, 0, 0, 1]])
         self.mensagem = mensagem
 
-        self.gt = np.transpose(self.g)
+        # self.gt = np.transpose(self.g)
 
     def hadamard(self):
         print("Entrada:")
@@ -32,5 +28,5 @@ class Hadamart():
         x = np.array(x)
         print(np.dot(matrix, x[0]))
 
-test = Hadamart([1,0,1,1,0,1,1,1])
+test = Hadamard([1,0,1,0,0])
 test.hadamard()

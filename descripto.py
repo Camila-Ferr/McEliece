@@ -2,7 +2,7 @@
 import numpy as np
 
 import generateKeys
-from codigo_erro.hamming_code import Hamming_code
+from codigoErro.hamming_code import Hamming_code
 from cripto import CriptoMcELiece
 
 

@@ -1,7 +1,7 @@
 import random
 import numpy as np
 import generateKeys
-from codigo_erro.hamming_code import Hamming_code
+from codigoErro.hamming_code import Hamming_code
 
 
 #Imagine que Bob queira enviar uma mensagem para Alice,

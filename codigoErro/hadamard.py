@@ -1,6 +1,5 @@
-import random
 import numpy as np
-from parameters import Paramters
+from parameters.hamming_h_g import Paramters
 class Hadamard():
     def __init__(self, mensagem):
         self.parametros5x3 = Paramters(4, 5, "Hadammard 8x5x3")

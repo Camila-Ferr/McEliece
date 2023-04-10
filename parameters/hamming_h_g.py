@@ -1,6 +1,6 @@
 import numpy as np
 import math
-class Paramters():
+class Hamming_h_g():
     def __init__(self, paridade, dados,tituloLogger):
         self.tituloLogger = tituloLogger
         self.paridade = paridade
@@ -51,7 +51,6 @@ class Paramters():
 
     def createG(self):
         g = np.zeros((self.dimensions_g[0], self.dimensions_g[1]))
-        print(g)
         ultimoIdentidade = 0
         posicoesIdentidade = []
         for coluna in range (0,self.dimensions_g[1]):

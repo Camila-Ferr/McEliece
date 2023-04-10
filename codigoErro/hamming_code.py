@@ -1,6 +1,6 @@
 import random
 import numpy as np
-from parameters import Paramters
+from parameters.hamming_h_g import Hamming_h_g as Paramters
 class Hamming_code():
     def __init__(self, p):
         self.p = p
@@ -9,59 +9,16 @@ class Hamming_code():
             self.h_7x4 = self.parametros7x4.getH()
             self.gt_7x4 = np.transpose(self.parametros7x4.getG())
             self.hamming(self.gt_7x4, self.h_7x4)
-            # print("---------------------A fins de comparação------------------")
-            # print(self.gt_7x4)
 
         elif (len(p) == 11):
             self.parametros15x11 = Paramters(4,11,"Hamming 15x11")
             self.h_15x11 = self.parametros15x11.getH()
             self.gt_15x11 = np.transpose(self.parametros15x11.getG())
-            print("---------------------A fins de comparação------------------")
-            print(self.gt_15x11)
-            self.hamming(self.gt_15x11, self.h_15x11)
 
         elif (len(p) == 26):
-            self.parametros31x26 = Paramters(5,26,"Hamming 15x11")
+            self.parametros31x26 = Paramters(5,26,"Hamming 31x26")
             self.h_31x26 = self.parametros31x26.getH()
             self.gt_31x26 = np.transpose(self.parametros31x26.getG())
-            print("---------------------A fins de comparação------------------")
-            print(self.gt_31x26)
-            self.hamming(self.gt_31x26, self.h_31x26)
-
-
-
-        #Para comparação em reunião
-        # self.gt_7x4 = np.matrix([[1, 1, 0, 1],
-        #                          [1, 0, 1, 1],
-        #                          [1, 0, 0, 0],
-        #                          [0, 1, 1, 1],
-        #                          [0, 1, 0, 0],
-        #                          [0, 0, 1, 0],
-        #                          [0, 0, 0, 1]])
-        # self.h_7x4 = np.matrix([[1, 0, 1, 0, 1, 0, 1],
-        #                         [0, 1, 1, 0, 0, 1, 1],
-        #                         [0, 0, 0, 1, 1, 1, 1]])
-        #
-        # self.gt_15x11 = np.matrix ([[ 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1],
-        #                     [  1, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1],
-        #                      [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #                      [ 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1],
-        #                      [ 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #                      [ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-        #                      [ 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-        #                      [ 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1],
-        #                      [ 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-        #                      [ 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-        #                      [ 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-        #                      [ 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-        #                      [ 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
-        #                      [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
-        #                      [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]])
-        #
-        # self.h_15x11 = np.matrix([[1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-        #                           [0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1],
-        #                           [0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1],
-        #                           [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1]])
 
         self.p = p
 
@@ -93,10 +50,10 @@ class Hamming_code():
         return x
 
     def verifica_erro (self,x,matrix):
+
         return (self.limpa_hamming((np.dot(matrix, x))))
 
 
-test = Hamming_code([1,0,1,1,0,1,1,1,0,1,1,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0])
+# test = Hamming_code([1,0,1,1,0,1,1,1,0,1,1,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0])
 
-# test = Hamming_code([1,0,1,0])
-# test.hamming_7x4()
+test = Hamming_code([1,0,1,0])

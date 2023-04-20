@@ -1,8 +1,8 @@
 import numpy as np
-from parameters.hamming_h_g import Paramters
+from parameters.Hadamard_g_h import Haddamard_g_h
 class Hadamard():
     def __init__(self, mensagem):
-        self.parametros5x3 = Paramters(4, 5, "Hadammard 8x5x3")
+        self.parametros5x3 = Haddamard_g_h(3, "Hadammard 8x5x3")
         self.gt = np.transpose(self.parametros5x3.getG())
         self.h = self.parametros5x3.getH()
 
@@ -15,17 +15,24 @@ class Hadamard():
         print(self.mensagem)
         x = np.dot(self.gt, self.mensagem)
         print("multiplicação: gt por mensagem")
+        x = self.limpa_haddamard(x)
         print(x)
+
         # print("Acrescentando erro")
-        # x = self.limpa_hamming(x)
         # x = self.acrescenta_erro(x[0])
         # print(x)
         print("Resultado final")
-        self.test(x,self.h)
+        x = self.test(x,self.h)
+        print(x)
 
     def test (self,x,matrix):
-        x = np.array(x)
-        print(np.dot(matrix, x[0]))
+        # x = np.array(x)
+        return (self.limpa_haddamard((np.dot(matrix, x))))
 
-test = Hadamard([1,0,1,0,0])
+    def limpa_haddamard(self, x):
+        for i in range (0,len(x)):
+            x[i] = x[i] %2
+        return x
+
+test = Hadamard([1,0,1])
 test.hadamard()

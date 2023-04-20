@@ -43,11 +43,11 @@ class ChavesMcELiece():
         return matriz
 
     #Matriz aleatória inversível
-    def s(self):
-        continua = True
-        while(continua):
-            s = np.random.randint(2, size=(self.k,self.k))
-            #Se determinante = 0, matriz não é inversível
-            if (np.linalg.det (s) != 0):
-                return s
+    # def s(self):
+    #     continua = True
+    #     while(continua):
+    #         s = np.random.randint(2, size=(self.k,self.k))
+    #         #Se determinante = 0, matriz não é inversível
+    #         if (np.linalg.det (s) != 0):
+    #             return s
 

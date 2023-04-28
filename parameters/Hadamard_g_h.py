@@ -1,5 +1,6 @@
-import numpy as np
 import math
+import numpy as np
+
 class Haddamard_g_h():
     def __init__(self, k,tituloLogger):
         self.k = k
@@ -53,14 +54,26 @@ class Haddamard_g_h():
         for linha in range (0,len(gtransposta)-self.k): #linha
             for coluna in range (0, self.n -(self.n-self.k)):
                 h[linha][coluna] = gtransposta[self.k+linha][coluna]
-
+        h = self.arruma(h)
         self.h = h
+        print(h)
 
     def createIdentidade(self,h):
         identidade = np.zeros((self.n-self.k,self.n-self.k))
         for i in range (0,len(identidade)):
             h[i][self.k+i] = 1
         return h
+
+    def arruma(self,h):
+        for coluna in range (0,self.dimensions_h[0]-1):
+            print(coluna)
+            if (coluna-1)>1 and (self.exponencia(coluna)%1 == 0) and (self.exponencia(coluna+1)%1 != 0):
+                h[:, [coluna-1, coluna]] = h[:, [coluna, coluna-1]]
+                print(h)
+        return h
+
+    def exponencia(self,x):
+        return math.log10(x + 1) / math.log10(2)
 
 
     def getG(self):

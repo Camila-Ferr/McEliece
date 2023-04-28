@@ -9,6 +9,7 @@ class Hamming_code():
             self.h_7x4 = self.parametros7x4.getH()
             self.gt_7x4 = np.transpose(self.parametros7x4.getG())
             self.hamming(self.gt_7x4, self.h_7x4)
+            print(np.dot(self.parametros7x4.getG(), np.transpose(self.h_7x4)))
 
         elif (len(p) == 11):
             self.parametros15x11 = Paramters(4,11,"Hamming 15x11")
@@ -34,7 +35,6 @@ class Hamming_code():
         print(x)
         print("Resultado final")
         print(self.verifica_erro(x, h))
-
 
 
 

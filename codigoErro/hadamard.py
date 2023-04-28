@@ -5,6 +5,10 @@ class Hadamard():
         self.parametros5x3 = Haddamard_g_h(3, "Hadammard 8x5x3")
         self.gt = np.transpose(self.parametros5x3.getG())
         self.h = self.parametros5x3.getH()
+        print(self.parametros5x3.getG())
+        print(self.h)
+        print("aq")
+        print(np.dot(self.parametros5x3.getH(), np.transpose(self.parametros5x3.getG())))
 
         self.mensagem = mensagem
 

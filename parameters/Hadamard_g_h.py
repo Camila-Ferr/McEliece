@@ -15,27 +15,21 @@ class Haddamard_g_h():
 
     def createG(self):
         g = np.zeros((self.dimensions_g[0], self.dimensions_g[1]))
-        gLinha = np.zeros((self.dimensions_g[0],2**(self.k-1)))
-        colunaGLinha = -1
+        g = self.createIdentidade(g, self.k,0)
+        prox = self.k
 
-        for coluna in range(0,self.dimensions_g[1]):
-            continua = False
-            atual = self.intBin(coluna + 1)
-            if (atual[0] == "1"):
-                continua = True
-                colunaGLinha +=1
-
-            for linha in range (0, self.dimensions_g[0]):
-                g[linha][coluna] = atual[linha]
-                if (continua):
-                    gLinha[linha][colunaGLinha] = atual[linha]
-
-        self.g = g
-        print("Create G:")
+        for contador in range (1, self.dimensions_g[1]):
+            if self.exponencia(contador)%1 != 0:
+                atual = self.intBin(contador+1)
+                for linha in range (0, self.dimensions_g[0]):
+                    g[linha][prox] = atual[linha]
+                prox += 1
+        print("G: ")
         print(g)
-        self.gLinha = gLinha
+        self.g = g
 
     def intBin(self,x):
+
         retorno = []
         bin = format(x, "b")
         contador = len(bin)
@@ -49,33 +43,23 @@ class Haddamard_g_h():
 
     def createH(self):
         h =  np.zeros((self.n-self.k - 1,self.n - 1))
-        h = self.createIdentidade(h)
+        h = self.createIdentidade(h, (self.n-self.k - 1), self.k)
         gtransposta = self.g.transpose()
-        print("G transposta")
-        print(gtransposta)
+
         for linha in range (0,len(gtransposta)-self.k): #linha
             for coluna in range (0, self.n -(self.n-self.k)):
                 h[linha][coluna] = gtransposta[self.k + linha][coluna]
-        # h = self.arruma(h)
+
         self.h = h
         print("Create H:")
         print(h)
 
 # Identidade está correta
-    def createIdentidade(self,h):
-        identidade = np.zeros((self.n-self.k - 1,self.n-self.k - 1))
-        print(identidade)
+    def createIdentidade(self,matrix, dimension, soma):
+        identidade = np.zeros((dimension,dimension))
         for i in range (0,len(identidade)):
-            h[i][i + self.k] = 1
-        return h
-
-    def arruma(self,h):
-        for coluna in range (0,self.dimensions_h[0]-1):
-            print(coluna)
-            if (coluna-1)>1 and (self.exponencia(coluna)%1 == 0) and (self.exponencia(coluna+1)%1 != 0):
-                h[:, [coluna-1, coluna]] = h[:, [coluna, coluna-1]]
-                print(h)
-        return h
+            matrix[i][i + soma] = 1
+        return matrix
 
     def exponencia(self,x):
         return math.log10(x + 1) / math.log10(2)
@@ -91,4 +75,4 @@ class Haddamard_g_h():
         return self.h
 
 
-parameters = Haddamard_g_h(3,"Hadamard")
+# parameters = Haddamard_g_h(3,"Hadamard")

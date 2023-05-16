@@ -91,7 +91,185 @@
 ##### Por exemplo, o vetor de verificação de paridade (0 0 1 0 0 0 0) indica que o terceiro bit do código recebido (1011010) contém um erro. Portanto, devemos inverter o valor do terceiro bit para corrigir o erro. O código correto é (1010010).
 
 
+## Álgebra Linear:
 
-## Código de Hadamard:
+###### Pares: 0
+###### Ímpares: 1
+###### Sempre que falar de Z é (Z mod 2)
+
+Com Z mod 2 = {0,1} -> 2 elementos
+```
+V1 = {[x1]}
+     {[...]} : x1,x2,..,xn pertence Z}
+     {[xn]}
+```
+-> Quantidade de vetores em V1 é 2^n 
+-> os vetores diferentes de 0 são 2^n -1
+-> Z^3 tem 7 vetores diferentes de 0
+
+#### Definição: Uma matriz de Hamming é uma matriz H com K linhas e colunas de H são todos os vetores diferentes de 0 em Z^k (sendo K um inteiro positivo)
+```
+Quando K = 3
+
+    [1 0 0 | 1 0 1 1]
+H = [0 1 0 | 1 1 0 1] = [I | Q]
+    [0 0 1 | 1 1 1 0]
+```
+Em geral podemos ter um vetor H = [I(k) Q]
+
+Então Q é um k x (2^k -1 -k) Matriz
+
+(L = 2^k -1 -k)
+```                        
+E com outra Matriz M := [Q]  -> Dimensão (2^k -1 linhas
+                        [I(L)]   e 2^k -1 -k colunas)
+```
+
+Ex:
+```
+M = [Q]
+    [I(4)]
+```
+Ker(H) = Núcleo (H)
+### Fatos:
+
+#### i) H é sobrejetivo
+#### ii) M é injetiva
+#### iii) Ker(H) = Imagem(M) (espaço nulo de H é o espaço da coluna de M)
+
+
+### Provas:
+
+#### i) H está na Forma Escalonada Reduzida e tem 3 pivos
+#### ii) As colunas da Matriz identidade são linearmente independentes, então o mesmo é verdade para M
+#### iii) Ker(H) contém a Imagem(M)
+```
+H * M = [I(3) Q] * [Q]   = [I(3)*Q + Q*I(4)]
+                   [I(4)]
+
+H * M = 2[Q] = 0  -> Uma Matriz 3x4
+```
+E agora Ker(H) está na Imagem(M)
+
+> Como M é injetiva, dimensão(Imagem(M)) = 4 e como H é sobrejetiva, dimensão(Imagem(H)) = 3 portanto, a dimensão(ker(H)) = 4, e como eles tem a mesma dimensão, eles tem o mesmo subespaço.
+
+###### Ker(H) = Imagem(M)
+                       
+> Com um vetor vazio, temos uma sequência de transformações lineares, que é uma sequência exata
+
+###### {0} -> Z^4 --M--> Z^7 --H-->Z^3 --> {0}
+
+
+### Propriedades:
+
+```
+H = [I(3) Q]   M = [Q]
+                   [I(4)]
+```
+#### Notação: 
+###### Imagem(M) = Ker(H) =: C (esse subespaço)
+
+###### O subespaço sendo deslocado por algum vetor:
+
+> Com Ci = C + ei = {V + ei: onde V está em C} ,para todo i pertence {1,..., 7} 
+
+### Fatos:
+
+#### i) Ci é o conjunto de solução de Hx = Hei, onde Hei é a coluna i de H
+
+#### ii) Ci interseção Cj = conjunto vazio, para todo i =/ j
+
+#### iii) C interseção Ci = conjunto vazio, para todo i
+
+#### iV) Z^7 = C união todos os outros conjuntos de soluções homogêneas (Ci, i = 1 até 7)
+ 
+ ###### é também uma união disjunta, então cada vetor de Z está exatamente em um desses subconjuntos. (é um conjunto de soluções do Sistema homogêneo ou está em um desses conjuntos de soluções dos diferentes sistemas não homogêneos)
+
+
+### Prova:
+
+#### i) ei é uma solução particular, e o conjunto de soluções de todo o sistema é:
+ 
+> Hx = Hei é ei + C
+
+#### ii) Suponha Mu1 + ei = Mu2 + ej
+> Se aplicarmos H para essa igualdade
+
+###### -> HMu1 + Hei = HMu2 + Hej, onde Hmu1 e Hmu2 é {0} 
+> => Hei = Hej (eles são iguais), então i = j
+
+#### iii) mesma prova de ii)
+
+#### iV) número de Vetores em C é 2^4
+
+> E o número de vetores em Ci é 2^4 e por ter 7 ci's, a união de todos os C é = 2^4 + 7 * 2^4
+
+###### União tem 2^4(2^3) = 2^7 e Z tem 2^7 vetores
+
+###### Então a união C união com Ci(i = 1 até 7) = Z^7
+
+###### Qual a significância:
+
+> H pode distinguir vetores C vs Ci por que
+> HC = {0} e HCi = {Hei} e portanto, se voce aplicar H para algum vetor arbitrário
+
+Vetor V em Z mod 2:
+
+###### Se      Hv = 0 =>    v está em C
+###### mas se  Hv = Hei =>  v está em Ci
+
+
+### Aplicações:
+
+> Se aplicarmos M em qualquer vetor u
+```
+Mu = [Qu] para todo u pertencente a Z^4
+      [u]
+```
+
+> Tenta mandar uma mensagem u:
+```
+u = [0] -> o erro pode ocorrer em qualquer bit
+    [1] 
+    [1]
+    [0]
+```
+
+Mas se mandar Mu pertence C (onde a mensagem está contida em C) e se tiver um erro qualquer:
+
+###### (Mensagem) V = Mu + ei
+
+##### Se 
+   > Hv = 0 => v pertence C = Imagem(M) -> Sem erro
+   > Hv = Hei => v pertence Ci = C + ei -> Com 1 erro no máximo
+
+##### No primeiro caso:
+
+> -> Mensagem Original: é o vetor correspondente às últimas quatro entradas de V
+
+##### No Segundo caso:
+
+> -> Um erro ocorreu na oitava entrada de V
+> Para consertar:
+> V + ei, as quatro últimas entradas desse vetor vai ser a mensagem original
+
+Ex:
+```
+    [0]
+v = [0]    
+    [1]   -> Se aplicarmos Hv = [1 0 0 | 1 0 1 1]
+    [1]                         [0 1 0 | 1 1 0 1] * V
+    [0]                         [0 0 1 | 1 1 1 0]
+    [1]                                      
+    [1]                                      
+   
+```
+```
+                  [3]           [1]
+teremos o vetor = [2] = mod 2 = [0]  -> e o erro está na sexta entrada
+                  [3]           [1]
+```
+
+##### Isso quer dizer que a mensagem v teve um erro na sexta linha
 
 
